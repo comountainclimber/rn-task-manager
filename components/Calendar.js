@@ -57,7 +57,10 @@ export default function Calendar({
           textDayHeaderFontWeight: "300",
           textDayFontSize: 16,
           textMonthFontSize: 16,
-          textDayHeaderFontSize: 16
+          textDayHeaderFontSize: 16,
+          textDayFontFamily: "Nunito-Regular",
+          textMonthFontFamily: "Nunito-Bold",
+          textDayHeaderFontFamily: "Nunito-Regular"
         }}
       />
     </>
@@ -83,12 +86,13 @@ const styles = StyleSheet.create({
     display: "flex",
     width: 350,
     overflow: "hidden",
-    marginBottom: -10
+    marginBottom: -10,
+    marginTop: -15
   },
   calendarLabel: {
+    fontFamily: "Nunito-Regular",
     paddingLeft: 24,
     paddingTop: 12,
-    paddingBottom: 12,
     width: "100%",
     display: "flex",
     justifyContent: "flex-start"

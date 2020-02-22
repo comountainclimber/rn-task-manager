@@ -47,7 +47,7 @@ export default function AnimatedTaskCard({
         }
       >
         <View style={task.completed ? { opacity: 0.5 } : { opacity: 1 }}>
-          <Text>{task.description}</Text>
+          <Text style={styles.taskDescriptionText}>{task.description}</Text>
           {task.completed ? (
             <Checked style={styles.taskCompletedIcon} />
           ) : (
@@ -76,8 +76,7 @@ const styles = StyleSheet.create({
   taskCompletedIcon: {
     marginTop: 6
   },
-  moveText: {
-    color: "white",
-    marginLeft: 24
+  taskDescriptionText: {
+    fontFamily: "Nunito-Regular"
   }
 });

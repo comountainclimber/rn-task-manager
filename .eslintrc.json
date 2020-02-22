@@ -7,6 +7,7 @@
     "no-use-before-define": 0,
     "import/no-extraneous-dependencies": 0,
     "react/jsx-curly-newline": 0,
-    "react/jsx-wrap-multilines": 0
+    "react/jsx-wrap-multilines": 0,
+    "global-require": 0
   }
 }

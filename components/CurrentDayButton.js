@@ -47,15 +47,17 @@ const styles = StyleSheet.create({
   },
   day: {
     fontSize: 24,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: "Nunito-Bold",
     width: "100%",
     textAlign: "left"
   },
   monthAndDay: {
+    marginTop: -2,
     fontSize: 16,
     width: "100%",
     textAlign: "left",
-
+    fontFamily: "Nunito-Regular",
     color: "grey"
   }
 });

@@ -9,13 +9,14 @@ export default function TaskInput({ handleAddTask }) {
   const [text, onChangeText] = React.useState("");
 
   return (
-    <Card additionalStyles={styles.taskInput}>
+    <Card additionalStyles={styles.taskInputContainer}>
       <>
         <TextInput
           placeholder="Add a task"
           onChangeText={value => onChangeText(value)}
           value={text}
           multiline
+          style={styles.taskInput}
         />
         <View style={styles.addTaskIconContainer}>
           <TouchableOpacity
@@ -37,8 +38,11 @@ TaskInput.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  taskInput: {
+  taskInputContainer: {
     padding: 12
+  },
+  taskInput: {
+    fontFamily: "Nunito-Regular"
   },
   addTaskIconContainer: {
     width: "100%",
