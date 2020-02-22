@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   },
   day: {
     fontSize: 24,
-    // fontWeight: "bold",
     fontFamily: "Nunito-Bold",
     width: "100%",
     textAlign: "left"
