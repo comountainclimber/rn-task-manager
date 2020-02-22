@@ -16,3 +16,4 @@ To run this application locally make sure have expo set up locally visit https:/
 - [ ] Add redux and redux persist for global state management and data persistence
 - [ ] Develop backend architecture for online/offline synchronization between mobile client and future products (web, desktop etc)
 - [ ] Fully polish UX including improving timing and frame rate on animations
+- [ ] Add unit and integration tests
