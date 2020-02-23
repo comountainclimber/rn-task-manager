@@ -5,6 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import configureStore from "./confgureStore";
 import Main from "./screens/main";
+import Loader from "./components/Loader";
 
 const { store, persistor } = configureStore();
 
@@ -31,8 +32,8 @@ export default class App extends React.Component {
 
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          {fontLoaded && <Main />}
+        <PersistGate loading={<Loader />} persistor={persistor}>
+          {fontLoaded ? <Main /> : <Loader />}
         </PersistGate>
       </Provider>
     );
