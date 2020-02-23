@@ -15,8 +15,8 @@ To run this application locally make sure have expo set up locally visit https:/
 - Users can delete tasks by swiping right
 
 ### Future enhancements
-- [ ] Update typography to match design spec
-- [ ] Add redux and redux persist for global state management and data persistence
+- [X] Update typography to match design spec
+- [X] Add redux and redux persist for global state management and data persistence
 - [ ] Develop backend architecture for online/offline synchronization between mobile client and future products (web, desktop etc)
 - [ ] Fully polish UX including improving timing and frame rate on animations
 - [ ] Add unit and integration tests
