@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   loader: {
+    opacity: 0.1,
     flex: 1,
     width: 150
   }

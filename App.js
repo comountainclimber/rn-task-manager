@@ -24,7 +24,9 @@ export default class App extends React.Component {
       "Nunito-Bold": require("./assets/fonts/Nunito-Bold.ttf"),
       "Nunito-Black": require("./assets/fonts/Nunito-Black.ttf")
     });
-    this.setState({ fontLoaded: true });
+    setTimeout(() => {
+      this.setState({ fontLoaded: true });
+    }, 400);
   }
 
   render() {
