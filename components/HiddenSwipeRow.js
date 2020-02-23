@@ -65,5 +65,15 @@ const styles = StyleSheet.create({
   backLeftBtn: {
     justifyContent: "flex-start",
     backgroundColor: "#2CA7FF"
+  },
+  moveText: {
+    fontFamily: "Nunito-Regular",
+    color: "white",
+    marginLeft: 24
+  },
+  deleteText: {
+    fontFamily: "Nunito-Regular",
+    color: "white",
+    marginRight: 24
   }
 });
