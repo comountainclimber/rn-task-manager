@@ -3,84 +3,38 @@ import {
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
-  Keyboard,
   Dimensions,
   View,
   SafeAreaView
 } from "react-native";
 import moment from "moment";
+import PropTypes from "prop-types";
 
-import { DATE, TASKS } from "../constants";
-import Calendar from "../components/Calendar";
-import CurrentDayButton from "../components/CurrentDayButton";
-import TaskInput from "../components/TaskInput";
-import SwipeableTaskList from "../components/SwipeableTaskList";
+import { DATE } from "../../constants";
+import Calendar from "../../components/Calendar";
+import CurrentDayButton from "../../components/CurrentDayButton";
+import TaskInput from "../../components/TaskInput";
+import SwipeableTaskList from "../../components/SwipeableTaskList";
 
-export default function Main() {
+export default function Main({
+  tasks,
+  handleAddTask,
+  handleToggleCompleteTask,
+  handleRemoveTask,
+  handleMoveTask
+}) {
   const [selectedDate, setSelectedDate] = React.useState(
     moment(DATE).format("YYYY-MM-DD")
   );
-  const [tasks, setTasks] = React.useState(TASKS);
   const [calendarVisible, toggleCalendarVisibility] = React.useState(false);
   const [taskRowBeingMoved, setTaskRowBeingMoved] = React.useState(null);
 
   const handleDayPress = date => setSelectedDate(date.dateString);
 
-  const handleAddTask = ({ value }) => {
-    const copy = { ...tasks };
-
-    if (!copy[selectedDate]) {
-      copy[selectedDate] = [];
-    }
-
-    copy[selectedDate].unshift({
-      completed: false,
-      description: value,
-      id: String(Date.now())
-    });
-    setTasks(copy);
-    Keyboard.dismiss();
-  };
-
-  const handleToggleCompleteTask = ({ id, completed }) => {
-    const copy = { ...tasks };
-    const task = copy[selectedDate].find(t => t.id === id);
-    task.completed = completed;
-    setTasks(copy);
-  };
-
-  const handleRemoveTask = id => {
-    const newData = { ...tasks };
-    const prevIndex = newData[selectedDate].findIndex(item => item.id === id);
-    newData[selectedDate].splice(prevIndex, 1);
-    setTasks(newData);
-  };
-
   const handleToggleCalendar = () => {
     if (taskRowBeingMoved) taskRowBeingMoved.closeRow();
     setTaskRowBeingMoved(null);
-
     return toggleCalendarVisibility(!calendarVisible);
-  };
-
-  const handleMoveTask = date => {
-    const { dateString } = date;
-    const { completed, description, id } = taskRowBeingMoved.props.item;
-    const taskToBeMoved = {
-      completed,
-      description,
-      id: String(Date.now())
-    };
-    const newData = { ...tasks };
-    if (newData[dateString]) {
-      newData[dateString].unshift(taskToBeMoved);
-    } else {
-      newData[dateString] = [taskToBeMoved];
-    }
-    const prevIndex = newData[selectedDate].findIndex(item => item.id === id);
-    newData[selectedDate].splice(prevIndex, 1);
-    setTasks(newData);
-    setTaskRowBeingMoved(null);
   };
 
   return (
@@ -114,7 +68,11 @@ export default function Main() {
               />
             </View>
           )}
-          <TaskInput handleAddTask={handleAddTask} />
+          <TaskInput
+            handleAddTask={({ description }) =>
+              handleAddTask({ task: { description }, selectedDate })
+            }
+          />
           {tasks[selectedDate] && (
             <SafeAreaView>
               <SwipeableTaskList
@@ -128,8 +86,16 @@ export default function Main() {
                   width: Dimensions.get("window").width,
                   height: Dimensions.get("window").height
                 }}
-                handleToggleCompleteTask={handleToggleCompleteTask}
-                handleRemoveTask={handleRemoveTask}
+                handleToggleCompleteTask={({ id, completed }) => {
+                  return handleToggleCompleteTask({
+                    task: {
+                      ...tasks[selectedDate].find(t => t.id === id),
+                      completed
+                    },
+                    selectedDate
+                  });
+                }}
+                handleRemoveTask={id => handleRemoveTask({ id, selectedDate })}
                 swipeDisabled={calendarVisible}
                 handleRenderMoveMap={row => setTaskRowBeingMoved(row)}
               />
@@ -141,7 +107,25 @@ export default function Main() {
             <Calendar
               calendarBackgroundColor="white"
               selectedDate={selectedDate}
-              handleDayPress={handleMoveTask}
+              handleDayPress={date => {
+                const { dateString } = date;
+                const {
+                  completed,
+                  description,
+                  id
+                } = taskRowBeingMoved.props.item;
+                const task = {
+                  completed,
+                  description,
+                  id
+                };
+                setTaskRowBeingMoved(null);
+                return handleMoveTask({
+                  task,
+                  selectedDate: dateString,
+                  previousDate: selectedDate
+                });
+              }}
               calendarLabel="Start Date:"
             />
           </View>
@@ -150,6 +134,22 @@ export default function Main() {
     </KeyboardAvoidingView>
   );
 }
+
+Main.propTypes = {
+  tasks: PropTypes.shape({
+    date: PropTypes.arrayOf(
+      PropTypes.exact({
+        id: PropTypes.string,
+        description: PropTypes.string,
+        completed: PropTypes.bool
+      })
+    )
+  }).isRequired,
+  handleAddTask: PropTypes.func.isRequired,
+  handleRemoveTask: PropTypes.func.isRequired,
+  handleMoveTask: PropTypes.func.isRequired,
+  handleToggleCompleteTask: PropTypes.func.isRequired
+};
 
 const styles = StyleSheet.create({
   standalone: {

@@ -1,7 +1,24 @@
 import React from "react";
 import * as Font from "expo-font";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import Main from "./screens/Main";
+import configureStore from "./confgureStore";
+import Main from "./screens/main";
+
+const { store, persistor } = configureStore();
+
+// persistor.subscribe(() => {
+//   /* Hydrate React components when persistor has synced with redux store */
+//   const { bootstrapped } = persistor.getState();
+
+//   if (bootstrapped) {
+//       ReactDOM.hydrate(
+//           <MyEntireApp />,
+//           document.getElementById("appOrWhatever")
+//     );
+//   }
+// });
 
 export default class App extends React.Component {
   constructor() {
@@ -9,6 +26,7 @@ export default class App extends React.Component {
     this.state = {
       fontLoaded: false
     };
+    this.persistor = persistor;
   }
 
   async componentDidMount() {
@@ -23,6 +41,13 @@ export default class App extends React.Component {
 
   render() {
     const { fontLoaded } = this.state;
-    return fontLoaded && <Main />;
+
+    return (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          {fontLoaded && <Main />}
+        </PersistGate>
+      </Provider>
+    );
   }
 }
