@@ -6,25 +6,27 @@ import PropTypes from "prop-types";
 import Card from "./Card";
 
 export default function TaskInput({ handleAddTask }) {
-  const [text, onChangeText] = React.useState("");
+  const [description, onChangeDescription] = React.useState("");
+
+  const handleSubmit = () => {
+    onChangeDescription("");
+    handleAddTask({ description });
+  };
 
   return (
     <Card additionalStyles={styles.taskInputContainer}>
       <>
         <TextInput
+          blurOnSubmit
           placeholder="Add a task"
-          onChangeText={value => onChangeText(value)}
-          value={text}
+          onChangeText={onChangeDescription}
+          value={description}
           multiline
           style={styles.taskInput}
+          onSubmitEditing={handleSubmit}
         />
         <View style={styles.addTaskIconContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              handleAddTask({ value: text });
-              onChangeText("");
-            }}
-          >
+          <TouchableOpacity onPress={handleSubmit}>
             <Ionicons name="ios-add" size={25} color="#B4B4B4" />
           </TouchableOpacity>
         </View>

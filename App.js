@@ -1,7 +1,13 @@
 import React from "react";
 import * as Font from "expo-font";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import Main from "./screens/Main";
+import configureStore from "./confgureStore";
+import Main from "./screens/main";
+import Loader from "./components/Loader";
+
+const { store, persistor } = configureStore();
 
 export default class App extends React.Component {
   constructor() {
@@ -18,11 +24,20 @@ export default class App extends React.Component {
       "Nunito-Bold": require("./assets/fonts/Nunito-Bold.ttf"),
       "Nunito-Black": require("./assets/fonts/Nunito-Black.ttf")
     });
-    this.setState({ fontLoaded: true });
+    setTimeout(() => {
+      this.setState({ fontLoaded: true });
+    }, 400);
   }
 
   render() {
     const { fontLoaded } = this.state;
-    return fontLoaded && <Main />;
+
+    return (
+      <Provider store={store}>
+        <PersistGate loading={<Loader />} persistor={persistor}>
+          {fontLoaded ? <Main /> : <Loader />}
+        </PersistGate>
+      </Provider>
+    );
   }
 }
