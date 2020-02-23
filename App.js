@@ -8,25 +8,12 @@ import Main from "./screens/main";
 
 const { store, persistor } = configureStore();
 
-// persistor.subscribe(() => {
-//   /* Hydrate React components when persistor has synced with redux store */
-//   const { bootstrapped } = persistor.getState();
-
-//   if (bootstrapped) {
-//       ReactDOM.hydrate(
-//           <MyEntireApp />,
-//           document.getElementById("appOrWhatever")
-//     );
-//   }
-// });
-
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
       fontLoaded: false
     };
-    this.persistor = persistor;
   }
 
   async componentDidMount() {

@@ -3979,11 +3979,6 @@ log-symbols@^2.2.0:
   dependencies:
     chalk "^2.0.1"
 
-logger@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/logger/-/logger-0.0.1.tgz#cb08171f8a6f6f674b8499dadf50bed4befb72c4"
-  integrity sha1-ywgXH4pvb2dLhJna31C+1L77csQ=
-
 logkitty@^0.6.0:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/logkitty/-/logkitty-0.6.1.tgz#fe29209669d261539cbd6bb998a136fc92a1a05c"
