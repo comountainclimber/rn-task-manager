@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ActionCreators } from "redux-undo";
 
 import {
   addTask,
@@ -10,7 +11,7 @@ import {
 import Main from "./Main";
 
 export default () => {
-  const tasks = useSelector(state => state.tasks);
+  const tasks = useSelector(state => state.tasks.present);
 
   const dispatch = useDispatch();
 
@@ -26,6 +27,8 @@ export default () => {
   const handleMoveTask = ({ task, selectedDate, previousDate }) =>
     dispatch(moveTask({ task, selectedDate, previousDate }));
 
+  const undo = () => dispatch(ActionCreators.undo());
+
   return (
     <Main
       tasks={tasks}
@@ -33,6 +36,7 @@ export default () => {
       handleToggleCompleteTask={handleToggleCompleteTask}
       handleRemoveTask={handleRemoveTask}
       handleMoveTask={handleMoveTask}
+      undo={undo}
     />
   );
 };
