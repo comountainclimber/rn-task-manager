@@ -60,7 +60,9 @@ export default function Main({
       >
         <View
           onStartShouldSetResponder={() =>
-            taskRowBeingMoved.closeRow() && setTaskRowBeingMoved(null)
+            taskRowBeingMoved &&
+            taskRowBeingMoved.closeRow() &&
+            setTaskRowBeingMoved(null)
           }
           style={styles.innerMainScreenContainer}
         >
