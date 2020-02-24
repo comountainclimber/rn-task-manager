@@ -173,14 +173,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F8FA"
   },
   moveTaskCalendarContainer: {
-    // width: "100%",
     display: "flex",
     flexDirection: "column",
     flex: 1,
     alignItems: "center",
     backgroundColor: "white"
-    // height: "100%"
-    // minHeight: 600
   },
   calendarContainer: {
     width: "100%",

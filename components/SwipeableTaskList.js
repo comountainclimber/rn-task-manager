@@ -90,7 +90,6 @@ export default function SwipeableTaskList({
       leftOpenValue={dimensions.width}
       rightOpenValue={-dimensions.width}
       onRowDidOpen={onRowDidOpen}
-      onRowOpen={() => console.log("opening")}
       onRowDidClose={onRowDidClose}
       onSwipeValueChange={onSwipeValueChange}
       disableLeftSwipe={swipeDisabled}
