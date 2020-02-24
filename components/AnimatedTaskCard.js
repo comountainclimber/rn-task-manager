@@ -21,7 +21,7 @@ export default function AnimatedTaskCard({
   const calculateRowHeight = characters => {
     const { length } = characters;
     const MIN_HEIGHT = 70;
-    const CHARS_PER_LINE = 35;
+    const CHARS_PER_LINE = 45;
     if (length < CHARS_PER_LINE) return MIN_HEIGHT;
     return (length / CHARS_PER_LINE) * MIN_HEIGHT;
   };

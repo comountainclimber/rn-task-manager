@@ -4,8 +4,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Dimensions,
-  View,
-  SafeAreaView
+  View
 } from "react-native";
 import moment from "moment";
 import PropTypes from "prop-types";
@@ -37,6 +36,11 @@ export default function Main({
     return toggleCalendarVisibility(!calendarVisible);
   };
 
+  const dimensions = {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height
+  };
+
   return (
     <KeyboardAvoidingView
       style={{
@@ -54,7 +58,12 @@ export default function Main({
         contentContainerStyle={styles.container}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.innerMainScreenContainer}>
+        <View
+          onStartShouldSetResponder={() =>
+            taskRowBeingMoved.closeRow() && setTaskRowBeingMoved(null)
+          }
+          style={styles.innerMainScreenContainer}
+        >
           <CurrentDayButton
             selectedDate={selectedDate}
             handlePress={handleToggleCalendar}
@@ -65,6 +74,7 @@ export default function Main({
               <Calendar
                 selectedDate={selectedDate}
                 handleDayPress={handleDayPress}
+                dimensions={dimensions}
               />
             </View>
           )}
@@ -74,37 +84,33 @@ export default function Main({
             }
           />
           {tasks[selectedDate] && (
-            <SafeAreaView>
-              <SwipeableTaskList
-                listViewData={tasks[selectedDate]
-                  .sort((a, b) => a.completed - b.completed)
-                  .map(task => ({
-                    key: task.id,
-                    ...task
-                  }))}
-                dimensions={{
-                  width: Dimensions.get("window").width,
-                  height: Dimensions.get("window").height
-                }}
-                handleToggleCompleteTask={({ id, completed }) => {
-                  return handleToggleCompleteTask({
-                    task: {
-                      ...tasks[selectedDate].find(t => t.id === id),
-                      completed
-                    },
-                    selectedDate
-                  });
-                }}
-                handleRemoveTask={id => handleRemoveTask({ id, selectedDate })}
-                swipeDisabled={calendarVisible}
-                handleRenderMoveMap={row => setTaskRowBeingMoved(row)}
-              />
-            </SafeAreaView>
+            <SwipeableTaskList
+              listViewData={tasks[selectedDate]
+                .sort((a, b) => a.completed - b.completed)
+                .map(task => ({
+                  key: task.id,
+                  ...task
+                }))}
+              dimensions={dimensions}
+              handleToggleCompleteTask={({ id, completed }) => {
+                return handleToggleCompleteTask({
+                  task: {
+                    ...tasks[selectedDate].find(t => t.id === id),
+                    completed
+                  },
+                  selectedDate
+                });
+              }}
+              handleRemoveTask={id => handleRemoveTask({ id, selectedDate })}
+              swipeDisabled={calendarVisible}
+              handleRenderMoveMap={row => setTaskRowBeingMoved(row)}
+            />
           )}
         </View>
         {taskRowBeingMoved && (
           <View style={styles.moveTaskCalendarContainer}>
             <Calendar
+              dimensions={dimensions}
               calendarBackgroundColor="white"
               selectedDate={selectedDate}
               handleDayPress={date => {
@@ -167,7 +173,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F8FA"
   },
   moveTaskCalendarContainer: {
-    width: "100%",
     display: "flex",
     flexDirection: "column",
     flex: 1,

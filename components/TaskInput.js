@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, TextInput } from "react-native";
 import PropTypes from "prop-types";
 
 import Card from "./Card";
@@ -25,11 +24,6 @@ export default function TaskInput({ handleAddTask }) {
           style={styles.taskInput}
           onSubmitEditing={handleSubmit}
         />
-        <View style={styles.addTaskIconContainer}>
-          <TouchableOpacity onPress={handleSubmit}>
-            <Ionicons name="ios-add" size={25} color="#B4B4B4" />
-          </TouchableOpacity>
-        </View>
       </>
     </Card>
   );
