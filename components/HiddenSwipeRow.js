@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     borderRadius: 4,
-    width: "100%"
+    width: "100%",
+    backgroundColor: "#F7F8FA"
   },
   backRightBtn: {
     justifyContent: "flex-end",
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     backgroundColor: "#2CA7FF"
   },
+
   moveText: {
     fontFamily: "Nunito-Regular",
     color: "white",

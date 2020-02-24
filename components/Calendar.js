@@ -8,7 +8,8 @@ export default function Calendar({
   handleDayPress,
   calendarBackgroundColor,
   additionalCalendarStyles,
-  calendarLabel
+  calendarLabel,
+  dimensions
 }) {
   return (
     <>
@@ -25,8 +26,12 @@ export default function Calendar({
       <RNCalendar
         horizontal
         pagingEnabled
-        calendarWidth={350}
-        style={[styles.calendar, additionalCalendarStyles]}
+        calendarWidth={dimensions.width}
+        style={[
+          styles.calendar,
+          additionalCalendarStyles,
+          { width: dimensions.width }
+        ]}
         current={selectedDate}
         disableMonthChange
         onDayPress={handleDayPress}
@@ -78,13 +83,16 @@ Calendar.propTypes = {
   handleDayPress: PropTypes.func.isRequired,
   calendarBackgroundColor: PropTypes.string,
   additionalCalendarStyles: ViewPropTypes.style,
-  calendarLabel: PropTypes.string
+  calendarLabel: PropTypes.string,
+  dimensions: PropTypes.exact({
+    height: PropTypes.number,
+    width: PropTypes.number
+  }).isRequired
 };
 
 const styles = StyleSheet.create({
   calendar: {
     display: "flex",
-    width: 350,
     overflow: "hidden",
     marginBottom: -10,
     marginTop: -15

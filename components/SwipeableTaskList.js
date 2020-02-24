@@ -45,12 +45,17 @@ export default function SwipeableTaskList({
   };
 
   const onSwipeValueChange = swipeData => {
-    const { key, value, direction } = swipeData;
+    const { key, value } = swipeData;
 
-    if (!swipeDirection && value) {
-      setSwipeDirection(direction);
+    if (value.toFixed(5) === 0 || !value) {
+      setSwipeDirection("");
     }
-    if (!value) {
+
+    if (value < 0) {
+      setSwipeDirection(SWIPE_ACTIONS.DELETE.direction);
+    } else if (value > 0) {
+      setSwipeDirection(SWIPE_ACTIONS.MOVE.direction);
+    } else {
       setSwipeDirection("");
     }
 
@@ -84,14 +89,13 @@ export default function SwipeableTaskList({
       )}
       leftOpenValue={dimensions.width}
       rightOpenValue={-dimensions.width}
-      previewRowKey="0"
-      previewOpenValue={-40}
-      previewOpenDelay={3000}
       onRowDidOpen={onRowDidOpen}
+      onRowOpen={() => console.log("opening")}
       onRowDidClose={onRowDidClose}
       onSwipeValueChange={onSwipeValueChange}
       disableLeftSwipe={swipeDisabled}
       disableRightSwipe={swipeDisabled}
+      swipeGestureBegan={() => setSwipeDirection("")}
       friction={30}
     />
   );
