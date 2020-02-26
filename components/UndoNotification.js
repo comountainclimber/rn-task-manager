@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Button,
   TouchableOpacity,
   Text,
   StyleSheet,
   Dimensions,
-  View
+  Animated
 } from "react-native";
 import PropTypes from "prop-types";
 
@@ -16,12 +15,21 @@ const dimensions = {
   height: Dimensions.get("window").height
 };
 
-const AUTO_DISMISS = 5000;
+const AUTO_DISMISS = 6000;
 const UndoNotification = ({ undo, visible, dismiss }) => {
+  const [springValue] = useState(new Animated.Value(0.3));
+
+  const spring = () => {
+    springValue.setValue(0.3);
+    Animated.spring(springValue, {
+      toValue: 1,
+      friction: 8
+    }).start();
+  };
+
   useEffect(() => {
-    // Your code here
     if (visible) {
-      console.log("You should see this only once");
+      spring();
       setTimeout(() => {
         dismiss();
       }, AUTO_DISMISS);
@@ -30,19 +38,25 @@ const UndoNotification = ({ undo, visible, dismiss }) => {
 
   return (
     visible && (
-      <View style={styles.container}>
+      <Animated.View
+        style={{
+          ...styles.container,
+          transform: [{ scale: springValue }]
+        }}
+      >
         <TouchableOpacity onPress={undo}>
           <Card additionalStyles={styles.notificationContainer}>
             <Text style={styles.undoText}>Undo?</Text>
           </Card>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     )
   );
 };
 
 UndoNotification.propTypes = {
   undo: PropTypes.func.isRequired,
+  dismiss: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired
 };
 
@@ -50,15 +64,16 @@ const styles = StyleSheet.create({
   container: {
     width: dimensions.width,
     display: "flex",
-    // flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    opacity: 0.7
+    position: "absolute",
+    bottom: 0,
+    opacity: 0.4
   },
   notificationContainer: {
     width: dimensions.width - 48,
-    height: 80,
+    height: 75,
     marginBottom: -24,
     backgroundColor: "#3d3d3d",
     flexDirection: "row",
