@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders without crashing 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#FFFFFF",
+        "borderColor": "#F0F0F0",
+        "borderRadius": 4,
+        "borderWidth": 1.5,
+        "marginBottom": 12,
+        "padding": 12,
+        "width": "100%",
+      },
+      Object {},
+    ]
+  }
+>
+  <Text>
+    Hello snapshot card test
+  </Text>
+</View>
+`;
