@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders without crashing 1`] = `
+<View
+  onLayout={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#F7F8FA",
+      "display": "flex",
+      "flex": 1,
+      "height": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "height": "100%",
+        },
+        Object {
+          "bottom": 0,
+        },
+      ]
+    }
+  >
+    <RCTScrollView
+      contentContainerStyle={
+        Object {
+          "backgroundColor": "#F7F8FA",
+          "paddingBottom": 48,
+          "paddingTop": 48,
+          "width": "100%",
+        }
+      }
+      keyboardShouldPersistTaps="handled"
+    >
+      <View>
+        <View
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "paddingLeft": 24,
+              "paddingRight": 24,
+            }
+          }
+        >
+          <View
+            accessible={true}
+            focusable={true}
+            isTVSelectable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "marginBottom": 24,
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "marginRight": 12,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "fontFamily": "Nunito-Bold",
+                    "fontSize": 24,
+                    "textAlign": "left",
+                    "width": "100%",
+                  }
+                }
+              >
+                Tuesday
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "grey",
+                    "fontFamily": "Nunito-Regular",
+                    "fontSize": 16,
+                    "marginTop": -2,
+                    "textAlign": "left",
+                    "width": "100%",
+                  }
+                }
+              >
+                February 25
+              </Text>
+            </View>
+            <test-file-stub />
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#FFFFFF",
+                  "borderColor": "#F0F0F0",
+                  "borderRadius": 4,
+                  "borderWidth": 1.5,
+                  "marginBottom": 12,
+                  "padding": 12,
+                  "width": "100%",
+                },
+                Object {
+                  "padding": 12,
+                },
+              ]
+            }
+          >
+            <TextInput
+              allowFontScaling={true}
+              blurOnSubmit={true}
+              multiline={true}
+              onChangeText={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="Add a task"
+              rejectResponderTermination={true}
+              style={
+                Object {
+                  "fontFamily": "Nunito-Regular",
+                }
+              }
+              underlineColorAndroid="transparent"
+              value=""
+            />
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;
