@@ -27,44 +27,40 @@ export default (state = {}, action) => {
     }
     case REMOVE_TASK: {
       const { selectedDate, id } = action;
-      const newTasks = { ...state };
-      const prevIndex = newTasks[selectedDate].findIndex(
-        item => item.id === id
-      );
-      newTasks[selectedDate].splice(prevIndex, 1);
-      return {
-        ...state,
-        ...newTasks
-      };
+      const newTasks = [...state[selectedDate]];
+      const newState = { ...state };
+      const prevIndex = newTasks.findIndex(item => item.id === id);
+      newTasks.splice(prevIndex, 1);
+      newState[action.selectedDate] = newTasks;
+      return newState;
     }
     case TOGGLE_COMPLETE_TASK: {
-      const newTasks = { ...state };
-      newTasks[action.selectedDate].find(
-        t => t.id === action.task.id
-      ).completed = action.task.completed;
-      return {
-        ...state,
-        ...newTasks
-      };
+      const newTasks = [...state[action.selectedDate]];
+      const newState = { ...state };
+      const updatedTasks = newTasks.map(task => {
+        if (task.id === action.task.id) {
+          return {
+            ...task,
+            completed: action.task.completed
+          };
+        }
+        return task;
+      });
+      newState[action.selectedDate] = updatedTasks;
+      return newState;
     }
     case MOVE_TASK: {
-      const newTasks = { ...state };
       const { selectedDate, previousDate, task } = action;
+      const newState = { ...state };
+      const newTasks = [...(state[selectedDate] || [])];
+      const oldTasks = [...state[previousDate]];
+      newTasks.unshift(task);
 
-      if (newTasks[selectedDate]) {
-        newTasks[selectedDate].unshift(task);
-      } else {
-        newTasks[selectedDate] = [task];
-      }
-
-      const prevIndex = newTasks[previousDate].findIndex(
-        item => item.id === task.id
-      );
-      newTasks[previousDate].splice(prevIndex, 1);
-      return {
-        ...state,
-        ...newTasks
-      };
+      const prevIndex = oldTasks.findIndex(item => item.id === task.id);
+      oldTasks.splice(prevIndex, 1);
+      newState[selectedDate] = newTasks;
+      newState[previousDate] = oldTasks;
+      return newState;
     }
 
     default:
