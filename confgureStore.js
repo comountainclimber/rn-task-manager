@@ -21,6 +21,5 @@ export default function configureStore(initialState = INITIAL_STATE) {
       : composeWithDevTools(applyMiddleware(thunk, loggerMiddleware))
   );
   const persistor = persistStore(store);
-
   return { store, persistor };
 }
